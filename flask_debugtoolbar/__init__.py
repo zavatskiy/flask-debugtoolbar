@@ -26,10 +26,14 @@ def replace_insensitive(string, target, replacement):
 
 
 def _printable(value):
+    # Dirty fix for a case when Flask-SQLAlchemy model's
+    # __repr__() method returns non-ascii string.
     if isinstance(value, unicode):
         return value.encode('unicode_escape')
     elif isinstance(value, str):
         return value.encode('string_escape')
+    elif isinstance(value, list) and len(value) > 0 and not isinstance(value[0], tuple):
+        return repr(map(unicode, value))
     else:
         return repr(value)
 
