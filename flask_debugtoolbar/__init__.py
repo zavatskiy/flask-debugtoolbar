@@ -35,7 +35,7 @@ def _printable(value):
     elif isinstance(value, list) and len(value) > 0 and not isinstance(value[0], tuple):
         return repr(map(unicode, value))
     else:
-        return repr(value)
+        return repr(unicode(value))
 
 
 class DebugToolbarExtension(object):
